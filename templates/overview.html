@@ -1,0 +1,66 @@
+<div class="mb-8">
+    <h2 class="text-2xl font-bold mb-2">QRix Dashboard</h2>
+    <p class="text-gray-600 mb-4">Monitor, track, and manage railway infrastructure components with precision and reliability.</p>
+    <div class="flex space-x-4">
+        <button class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+            Generate QR Code
+        </button>
+        <button class="bg-gray-100 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-200 transition-colors">
+            View Reports
+        </button>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div class="bg-white p-6 rounded-lg shadow-md stat-card">
+        <div class="flex items-center justify-between mb-4">
+            <div class="text-blue-500">📦</div>
+            <div class="text-green-500 text-sm">+12%</div>
+        </div>
+        <div class="text-2xl font-bold mb-1" id="totalItems">--</div>
+        <div class="text-gray-600 text-sm">Total Items Registered</div>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow-md stat-card">
+        <div class="flex items-center justify-between mb-4">
+            <div class="text-blue-500">👥</div>
+            <div class="text-green-500 text-sm">+2</div>
+        </div>
+        <div class="text-2xl font-bold mb-1" id="activeVendors">--</div>
+        <div class="text-gray-600 text-sm">Active Vendors</div>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow-md stat-card">
+        <div class="flex items-center justify-between mb-4">
+            <div class="text-blue-500">🛡️</div>
+            <div class="text-red-500 text-sm">-5%</div>
+        </div>
+        <div class="text-2xl font-bold mb-1" id="itemsUnderWarranty">--</div>
+        <div class="text-gray-600 text-sm">Items Under Warranty</div>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow-md stat-card">
+        <div class="flex items-center justify-between mb-4">
+            <div class="text-blue-500">⚠️</div>
+            <div class="text-yellow-500 text-sm">64%</div>
+        </div>
+        <div class="text-2xl font-bold mb-1" id="failedInspections">--</div>
+        <div class="text-gray-600 text-sm">Failed Inspections</div>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <h3 class="text-lg font-semibold mb-4">Recent Activity</h3>
+        <div class="space-y-4" id="recentActivityList">
+            <!-- Recent activity items will be inserted here -->
+        </div>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <h3 class="text-lg font-semibold mb-4">Alerts & Notifications</h3>
+        <div class="space-y-4" id="alertsList">
+            <!-- Alert items will be inserted here -->
+        </div>
+    </div>
+</div>

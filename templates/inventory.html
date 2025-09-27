@@ -1,0 +1,45 @@
+<div class="inventory-container p-6">
+    <h2 class="text-2xl font-semibold mb-6">Inventory & Inspections</h2>
+
+    <!-- Filters -->
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+        <div class="flex items-center gap-4">
+            <div>
+                <label for="viewSelector" class="block text-sm font-medium text-gray-700">View</label>
+                <select id="viewSelector" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                    <option value="inventory" selected>Inventory</option>
+                    <option value="inspections">Inspections</option>
+                </select>
+            </div>
+            <div id="inventoryFilters">
+                <label for="filterStatus" class="block text-sm font-medium text-gray-700">Status</label>
+                <select id="filterStatus" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                    <option value="">All</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                </select>
+            </div>
+        </div>
+        <div>
+            <label for="searchInput" class="block text-sm font-medium text-gray-700">Search</label>
+            <input type="text" id="searchInput" placeholder="Search..." class="mt-1 block w-full md:w-64 rounded-md border-gray-300 shadow-sm">
+        </div>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div id="loadingIndicator" class="hidden text-center py-4">
+        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto"></div>
+    </div>
+
+    <!-- Data Table -->
+    <div class="bg-white rounded-lg shadow overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead id="tableHead" class="bg-gray-50">
+                <!-- Header will be dynamically inserted here -->
+            </thead>
+            <tbody id="tableBody" class="bg-white divide-y divide-gray-200">
+                <!-- Data will be loaded here -->
+            </select>
+        </div>
+    </div>
+</div>

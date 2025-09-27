@@ -1,0 +1,64 @@
+<!-- KPIs Overview -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+    <!-- Total Components -->
+    <div class="analytics-stat">
+        <div class="analytics-stat-value">1,482</div>
+        <div class="analytics-stat-label">Total Components Tracked</div>
+        <div class="mt-2">
+            <span class="status-badge excellent">
+                ↑ 12% from last month
+            </span>
+        </div>
+    </div>
+    
+    <!-- Inspection Rate -->
+    <div class="analytics-stat">
+        <div class="analytics-stat-value">94.8%</div>
+        <div class="analytics-stat-label">Inspection Rate</div>
+        <div class="mt-2">
+            <span class="status-badge good">
+                On Target
+            </span>
+        </div>
+    </div>
+    
+    <!-- Maintenance Score -->
+    <div class="analytics-stat">
+        <div class="analytics-stat-value">87.3%</div>
+        <div class="analytics-stat-label">Maintenance Score</div>
+        <div class="mt-2">
+            <span class="status-badge monitor">
+                ↓ 3% from target
+            </span>
+        </div>
+    </div>
+</div>
+
+<!-- Charts -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- Component Health Trend -->
+    <div class="analytics-chart">
+        <h3 class="text-lg font-semibold mb-4">Component Health Trend</h3>
+        <div class="chart-container">
+            <canvas id="healthTrendChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Component Distribution -->
+    <div class="analytics-chart">
+        <h3 class="text-lg font-semibold mb-4">Component Distribution</h3>
+        <div class="chart-container">
+            <canvas id="componentDistChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- Maintenance History -->
+<div class="mt-6">
+    <div class="analytics-chart">
+        <h3 class="text-lg font-semibold mb-4">Maintenance History</h3>
+        <div class="chart-container">
+            <canvas id="maintenanceHistoryChart"></canvas>
+        </div>
+    </div>
+</div>

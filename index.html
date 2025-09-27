@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QRix - Railway Track Fittings Management System</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Component-specific styles -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/overview.css">
+    <link rel="stylesheet" href="css/qr-generator.css">
+    <link rel="stylesheet" href="css/analytics.css">
+
+    <!-- Third-party libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+</head>
+<body class="bg-gray-50">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white shadow-lg">
+            <div class="p-4 border-b">
+                <h1 class="text-xl font-semibold">QRix</h1>
+                <p class="text-sm text-gray-600">Railway Track Fittings Management System</p>
+            </div>
+            <nav class="p-4">
+                <ul class="space-y-2">
+                    <li>
+                        <a href="#" class="flex items-center p-3 text-gray-700 rounded hover:bg-blue-50" data-page="overview">
+                            <span class="mr-3">📊</span> Overview
+                        </a>
+                    </li>
+                    <li class="admin-only">
+                        <a href="#" class="flex items-center p-3 text-gray-700 rounded hover:bg-blue-50" data-page="generate-qr">
+                            <span class="mr-3">🔲</span> Generate QR
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center p-3 text-gray-700 rounded hover:bg-blue-50" data-page="scan-qr">
+                            <span class="mr-3">📷</span> Scan QR
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center p-3 text-gray-700 rounded hover:bg-blue-50" data-page="inventory">
+                            <span class="mr-3">📦</span> Inventory
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center p-3 text-gray-700 rounded hover:bg-blue-50" data-page="analytics">
+                            <span class="mr-3">📈</span> Analytics
+                        </a>
+                    </li>
+                    <li class="admin-only">
+                        <a href="#" class="flex items-center p-3 text-gray-700 rounded hover:bg-blue-50" data-page="admin">
+                            <span class="mr-3">⚙️</span> Admin Panel
+                        </a>
+                    </li>
+                </ul>
+                <div class="mt-4 pt-4 border-t">
+                    <div id="userInfo" class="text-sm text-gray-600 mb-2"></div>
+                    <button id="logoutBtn" class="w-full text-left p-3 text-red-600 rounded hover:bg-red-50 hidden">
+                        <span class="mr-3">🚪</span> Logout
+                    </button>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto">
+            <div id="content" class="p-8">
+                <!-- Content will be loaded here dynamically -->
+            </div>
+        </main>
+    </div>
+
+    <!-- ES6 Module Scripts -->
+    <script type="module">
+        // Import modules
+        import { loadOverviewPage } from './js/tabs/overview.js';
+        import { loadQRGeneratorPage } from './js/tabs/qr-generator.js';
+        import { loadAnalyticsPage } from './js/tabs/analytics.js';
+        import { loadInventoryPage } from './js/tabs/inventory.js';
+        import { loadQRScannerPage } from './js/tabs/scanner.js';
+        import { loadAdminPage } from './js/tabs/admin.js';
+
+        // Mock data for the dashboard
+        const dashboardData = {
+            stats: {
+                totalItems: 2847,
+                activeVendors: 24,
+                itemsUnderWarranty: 2391,
+                failedInspections: 43
+            },
+            recentActivity: [
+                {
+                    id: 'QR-2024-001',
+                    vendor: 'QRix Solutions',
+                    type: 'Elastic Rail Clip',
+                    date: '2024-01-15'
+                },
+                {
+                    id: 'QR-2024-002',
+                    vendor: 'TrackFit Industries',
+                    type: 'Rail Liner',
+                    date: '2024-01-14'
+                }
+            ],
+            alerts: [
+                {
+                    type: 'warning',
+                    message: '50 items expiring within 30 days',
+                    category: 'Warranty Management'
+                },
+                {
+                    type: 'danger',
+                    message: 'QRix Solutions: 8% defect rate',
+                    category: 'Quality Control'
+                }
+            ]
+        };
+
+        // Get main content div
+        const mainContent = document.getElementById('content');
+
+        // Handle navigation
+        document.querySelectorAll('[data-page]').forEach(link => {
+            link.addEventListener('click', async (e) => {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                document.querySelectorAll('[data-page]').forEach(l => 
+                    l.classList.remove('bg-blue-50'));
+                
+                // Add active class to clicked link
+                link.classList.add('bg-blue-50');
+
+                if (!isAuthenticated && page !== 'login') {
+                    showLoginForm();
+                    return;
+                }
+
+                // Get page identifier
+                const page = link.getAttribute('data-page');
+
+                // Check admin access
+                if (page === 'generate-qr' || page === 'admin') {
+                    if (userRole !== 'admin') {
+                        alert('Admin access required');
+                        return;
+                    }
+                }
+
+                // Load appropriate content
+                switch (page) {
+                    case 'overview':
+                        await loadOverviewPage(mainContent, dashboardData);
+                        break;
+                    case 'generate-qr':
+                        await loadQRGeneratorPage(mainContent);
+                        break;
+                    case 'scan-qr':
+                        await loadQRScannerPage(mainContent);
+                        break;
+                    case 'inventory':
+                        await loadInventoryPage(mainContent);
+                        break;
+                    case 'analytics':
+                        await loadAnalyticsPage(mainContent);
+                        break;
+                    case 'admin':
+                        await loadAdminPage(mainContent);
+                        break;
+                    default:
+                        mainContent.innerHTML = '<p class="text-gray-500">Coming soon...</p>';
+                }
+            });
+        });
+
+        let isAuthenticated = false;
+        let userRole = null;
+        const logoutBtn = document.getElementById('logoutBtn');
+        const userInfo = document.getElementById('userInfo');
+
+        function updateUIForRole(role) {
+            document.querySelectorAll('.admin-only').forEach(el => {
+                el.style.display = role === 'admin' ? 'block' : 'none';
+            });
+        }
+
+        function showLoginForm() {
+            mainContent.innerHTML = `
+                <div class="min-h-screen flex items-center justify-center">
+                    <div class="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow">
+                        <div>
+                            <h2 class="text-center text-3xl font-extrabold text-gray-900">Sign in to QRix</h2>
+                        </div>
+                        <form id="loginForm" class="mt-8 space-y-6">
+                            <div class="rounded-md shadow-sm -space-y-px">
+                                <div>
+                                    <label for="username" class="sr-only">Username</label>
+                                    <input id="username" name="username" type="text" required
+                                        class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                                        placeholder="Username">
+                                </div>
+                                <div>
+                                    <label for="password" class="sr-only">Password</label>
+                                    <input id="password" name="password" type="password" required
+                                        class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                                        placeholder="Password">
+                                </div>
+                            </div>
+                            <div>
+                                <button type="submit"
+                                    class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                    Sign in
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('loginForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                
+                try {
+                    const response = await fetch('http://localhost:5000/api/auth/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        credentials: 'include',
+                        body: JSON.stringify({ username, password })
+                    });
+
+                    if (!response.ok) throw new Error('Invalid credentials');
+                    
+                    const data = await response.json();
+                    isAuthenticated = true;
+                    userRole = data.user.role;
+                    logoutBtn.classList.remove('hidden');
+                    userInfo.textContent = `Logged in as: ${username} (${userRole})`;
+                    updateUIForRole(userRole);
+                    document.querySelector('[data-page="overview"]').click();
+                } catch (error) {
+                    alert('Login failed: ' + error.message);
+                }
+            });
+        }
+
+        logoutBtn.addEventListener('click', async () => {
+            try {
+                await fetch('http://localhost:5000/api/auth/logout', {
+                    method: 'POST',
+                    credentials: 'include'
+                });
+                isAuthenticated = false;
+                userRole = null;
+                logoutBtn.classList.add('hidden');
+                userInfo.textContent = '';
+                updateUIForRole(null);
+                showLoginForm();
+            } catch (error) {
+                console.error('Logout failed:', error);
+            }
+        });
+
+        // Show login form by default
+        showLoginForm();
+    </script>
+</body>
+</html>

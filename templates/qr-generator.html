@@ -1,0 +1,74 @@
+<div class="max-w-4xl mx-auto">
+    <h2 class="text-2xl font-bold mb-2">QR Code Generator</h2>
+    <p class="text-gray-600 mb-8">Generate QR codes for railway track fittings</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-lg font-semibold mb-4">Item Information</h3>
+            <form id="qrForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Vendor Name *</label>
+                    <input type="text" name="vendorName" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500" placeholder="e.g., QRix Solutions" required>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Lot Number *</label>
+                    <input type="text" name="lotNumber" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500" placeholder="e.g., LOT-2024-001" required>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Item Type *</label>
+                    <select name="itemType" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500" required>
+                        <option value="">Select item type</option>
+                        <option value="rail-liner">Rail Liner</option>
+                        <option value="elastic-rail-clip">Elastic Rail Clip</option>
+                        <option value="rail-pad">Rail Pad</option>
+                        <option value="sleeper">Sleeper</option>
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Manufacture Date</label>
+                        <input type="date" name="manufactureDate" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Supply Date</label>
+                        <input type="date" name="supplyDate" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Warranty Period</label>
+                    <select name="warrantyPeriod" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500">
+                        <option value="12">12 months</option>
+                        <option value="24">24 months</option>
+                        <option value="36">36 months</option>
+                        <option value="48">48 months</option>
+                        <option value="60">60 months</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors">
+                    Generate QR Code
+                </button>
+            </form>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-lg font-semibold mb-4">Generated QR Code</h3>
+            <div id="qrCode" class="flex items-center justify-center min-h-[300px]">
+                <p class="text-gray-500">Fill out the form to generate a QR code</p>
+            </div>
+            <div id="qrInfo" class="mt-4 hidden">
+                <div class="mb-4">
+                    <div class="text-sm text-gray-600">ID:</div>
+                    <div id="qrId" class="font-mono"></div>
+                </div>
+                <button id="downloadPdf" class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors">
+                    Download PDF
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
