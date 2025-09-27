@@ -20,57 +20,69 @@
 </head>
 <body class="bg-gray-50">
     <div class="flex h-screen">
-        <!-- Sidebar -->
-        <aside class="w-64 bg-white shadow-lg">
-            <div class="p-4 border-b">
-                <h1 class="text-xl font-semibold">QRix</h1>
-                <p class="text-sm text-gray-600">Railway Track Fittings Management System</p>
+        <!-- Dark Mode Toggle -->
+        <div class="absolute top-6 right-10 z-40">
+            <label class="flex items-center cursor-pointer select-none">
+                <span class="mr-3 font-semibold text-gray-700">Dark Mode</span>
+                <input type="checkbox" id="darkModeSwitch" class="sr-only">
+                <span class="w-12 h-6 flex items-center bg-gray-300 rounded-full p-1 transition-colors duration-200" id="switchTrack">
+                    <span class="dot w-5 h-5 bg-white rounded-full shadow-md transform transition-transform duration-200" id="switchDot"></span>
+                </span>
+            </label>
+        </div>
+        <aside class="w-64 bg-gradient-to-br from-gray-100 via-gray-50 to-white shadow-lg flex flex-col justify-between">
+            <div class="p-6 border-b border-gray-200">
+                <div class="flex items-center gap-3 mb-2">
+                    <img src="https://img.icons8.com/color/48/000000/qr-code.png" alt="QRix Logo" class="w-10 h-10 rounded-xl shadow-lg">
+                    <h1 class="text-2xl font-bold text-gray-700 drop-shadow">QRix</h1>
+                </div>
+                <p class="text-sm text-gray-400 font-medium">Railway Track Fittings Management System</p>
             </div>
-            <nav class="p-4">
-                <ul class="space-y-2">
+            <nav class="p-6 flex-1">
+                <ul class="space-y-3">
                     <li>
-                        <a href="#" class="flex items-center p-3 text-gray-700 rounded hover:bg-blue-50" data-page="overview">
-                            <span class="mr-3">📊</span> Overview
+                        <a href="#" class="flex items-center gap-3 p-3 text-gray-700 rounded-xl bg-white shadow hover:bg-gray-100 hover:scale-105 hover:shadow-xl transition-all duration-200" data-page="overview">
+                            <span class="text-xl">📊</span> <span class="font-semibold">Overview</span>
                         </a>
                     </li>
                     <li class="admin-only">
-                        <a href="#" class="flex items-center p-3 text-gray-700 rounded hover:bg-blue-50" data-page="generate-qr">
-                            <span class="mr-3">🔲</span> Generate QR
+                        <a href="#" class="flex items-center gap-3 p-3 text-gray-700 rounded-xl bg-white shadow hover:bg-gray-100 hover:scale-105 hover:shadow-xl transition-all duration-200" data-page="generate-qr">
+                            <span class="text-xl">🔲</span> <span class="font-semibold">Generate QR</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center p-3 text-gray-700 rounded hover:bg-blue-50" data-page="scan-qr">
-                            <span class="mr-3">📷</span> Scan QR
+                        <a href="#" class="flex items-center gap-3 p-3 text-gray-700 rounded-xl bg-white shadow hover:bg-gray-100 hover:scale-105 hover:shadow-xl transition-all duration-200" data-page="scan-qr">
+                            <span class="text-xl">📷</span> <span class="font-semibold">Scan QR</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center p-3 text-gray-700 rounded hover:bg-blue-50" data-page="inventory">
-                            <span class="mr-3">📦</span> Inventory
+                        <a href="#" class="flex items-center gap-3 p-3 text-gray-700 rounded-xl bg-white shadow hover:bg-gray-100 hover:scale-105 hover:shadow-xl transition-all duration-200" data-page="inventory">
+                            <span class="text-xl">📦</span> <span class="font-semibold">Inventory</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center p-3 text-gray-700 rounded hover:bg-blue-50" data-page="analytics">
-                            <span class="mr-3">📈</span> Analytics
+                        <a href="#" class="flex items-center gap-3 p-3 text-gray-700 rounded-xl bg-white shadow hover:bg-gray-100 hover:scale-105 hover:shadow-xl transition-all duration-200" data-page="analytics">
+                            <span class="text-xl">📈</span> <span class="font-semibold">Analytics</span>
                         </a>
                     </li>
                     <li class="admin-only">
-                        <a href="#" class="flex items-center p-3 text-gray-700 rounded hover:bg-blue-50" data-page="admin">
-                            <span class="mr-3">⚙️</span> Admin Panel
+                        <a href="#" class="flex items-center gap-3 p-3 text-gray-700 rounded-xl bg-white shadow hover:bg-gray-100 hover:scale-105 hover:shadow-xl transition-all duration-200" data-page="admin">
+                            <span class="text-xl">⚙️</span> <span class="font-semibold">Admin Panel</span>
                         </a>
                     </li>
                 </ul>
-                <div class="mt-4 pt-4 border-t">
-                    <div id="userInfo" class="text-sm text-gray-600 mb-2"></div>
-                    <button id="logoutBtn" class="w-full text-left p-3 text-red-600 rounded hover:bg-red-50 hidden">
-                        <span class="mr-3">🚪</span> Logout
-                    </button>
-                </div>
             </nav>
+            <div class="p-6 border-t border-gray-200">
+                <div id="userInfo" class="text-sm text-gray-400 mb-2"></div>
+                <button id="logoutBtn" class="w-full text-left p-3 text-gray-700 rounded-xl bg-white shadow hover:bg-gray-100 hover:scale-105 hover:shadow-xl transition-all duration-200 hidden">
+                    <span class="mr-3">🚪</span> Logout
+                </button>
+            </div>
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 overflow-y-auto">
-            <div id="content" class="p-8">
+        <main class="flex-1 overflow-y-auto bg-gradient-to-br from-gray-50 via-white to-gray-100">
+            <div id="content" class="p-10">
                 <!-- Content will be loaded here dynamically -->
             </div>
         </main>
@@ -78,6 +90,34 @@
 
     <!-- ES6 Module Scripts -->
     <script type="module">
+        // Dark mode toggle logic
+        // Dark mode switch logic
+        const darkModeSwitch = document.getElementById('darkModeSwitch');
+        const switchTrack = document.getElementById('switchTrack');
+        const switchDot = document.getElementById('switchDot');
+        function setDarkMode(on) {
+            if (on) {
+                document.body.classList.add('dark-theme');
+                darkModeSwitch.checked = true;
+                switchTrack.classList.replace('bg-gray-300', 'bg-blue-600');
+                switchDot.style.transform = 'translateX(24px)';
+            } else {
+                document.body.classList.remove('dark-theme');
+                darkModeSwitch.checked = false;
+                switchTrack.classList.replace('bg-blue-600', 'bg-gray-300');
+                switchDot.style.transform = 'translateX(0)';
+            }
+        }
+        darkModeSwitch.addEventListener('change', () => {
+            setDarkMode(darkModeSwitch.checked);
+            localStorage.setItem('darkMode', darkModeSwitch.checked ? 'on' : 'off');
+        });
+        // Persist mode across reloads
+        if (localStorage.getItem('darkMode') === 'on') {
+            setDarkMode(true);
+        } else {
+            setDarkMode(false);
+        }
         // Import modules
         import { loadOverviewPage } from './js/tabs/overview.js';
         import { loadQRGeneratorPage } from './js/tabs/qr-generator.js';

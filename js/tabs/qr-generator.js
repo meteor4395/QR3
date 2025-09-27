@@ -14,73 +14,71 @@ class QRGeneratorPage {
     render() {
         if (!this.contentDiv) return;
         this.contentDiv.innerHTML = `
-            <div class="qr-generator-container">
-                <h2 class="text-2xl font-semibold mb-6">QR Code Generator</h2>
-                
+            <div class="flex flex-col gap-4">
+                <div class="mb-2">
+                    <h2 class="text-3xl font-bold text-gray-900">QR Code Generator</h2>
+                    <p class="text-lg text-gray-500">Generate QR codes for railway track fittings</p>
+                </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <!-- Form Section -->
-                    <div class="qr-form">
+                    <!-- Form Card -->
+                    <div class="bg-white rounded-xl shadow-lg p-8 flex flex-col justify-center min-h-[400px]">
+                        <h3 class="text-xl font-semibold mb-6">Item Information</h3>
                         <form id="qr-form" class="space-y-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Vendor Name</label>
-                                <input type="text" name="vendor_name" required
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                                <label class="block text-sm font-medium text-gray-700">Vendor Name <span class="text-red-500">*</span></label>
+                                <input type="text" name="vendor_name" required placeholder="e.g., QRix Solutions"
+                                    class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500">
                             </div>
-                            
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Lot Number</label>
-                                <input type="text" name="lot_number" required
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                                <label class="block text-sm font-medium text-gray-700">Lot Number <span class="text-red-500">*</span></label>
+                                <input type="text" name="lot_number" required placeholder="e.g., LOT-2024-001"
+                                    class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500">
                             </div>
-                            
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Item Type</label>
-                                <select name="item_type" required
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-                                    <option value="">Select Item Type</option>
+                                <label class="block text-sm font-medium text-gray-700">Item Type <span class="text-red-500">*</span></label>
+                                <select name="item_type" required class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                    <option value="">Select item type</option>
                                     <option value="Elastic Rail Clip">Elastic Rail Clip</option>
                                     <option value="Rail Liner">Rail Liner</option>
                                     <option value="Track Bolt">Track Bolt</option>
                                     <option value="Rail Pad">Rail Pad</option>
                                 </select>
                             </div>
-                            
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Manufacture Date</label>
-                                <input type="date" name="manufacture_date" required
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Manufacture Date</label>
+                                    <input type="date" name="manufacture_date" required placeholder="dd-mm-yyyy"
+                                        class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Supply Date</label>
+                                    <input type="date" name="supply_date" required placeholder="dd-mm-yyyy"
+                                        class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                </div>
                             </div>
-                            
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Supply Date</label>
-                                <input type="date" name="supply_date" required
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-                            </div>
-                            
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">Warranty Period</label>
-                                <select name="warranty_period" required
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-                                    <option value="">Select Warranty Period</option>
+                                <select name="warranty_period" required class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                    <option value="12 months">12 months</option>
                                     <option value="6 months">6 months</option>
                                     <option value="1 year">1 year</option>
                                     <option value="2 years">2 years</option>
                                     <option value="5 years">5 years</option>
                                 </select>
                             </div>
-                            
                             <button type="submit"
-                                class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700">
+                                class="w-full bg-blue-600 text-white py-2 px-4 rounded-md font-semibold shadow hover:bg-blue-700 transition-all duration-200">
                                 Generate QR Code
                             </button>
                         </form>
                     </div>
-                    
-                    <!-- QR Code Preview Section -->
-                    <div class="qr-preview">
-                        <div id="qrcode" class="flex justify-center items-center p-4 bg-white rounded-lg shadow-md"></div>
+                    <!-- Preview Card -->
+                    <div class="bg-white rounded-xl shadow-lg p-8 flex flex-col justify-center min-h-[400px]">
+                        <h3 class="text-xl font-semibold mb-6">Generated QR Code</h3>
+                        <div id="qrcode" class="flex justify-center items-center p-4"></div>
                         <div id="qr-success" class="mt-4 text-center text-green-600"></div>
                         <div id="qr-error" class="mt-4 text-center text-red-600"></div>
+                        <div id="qr-placeholder" class="text-gray-400 text-center mt-8">Fill out the form to generate a QR code</div>
                     </div>
                 </div>
             </div>
