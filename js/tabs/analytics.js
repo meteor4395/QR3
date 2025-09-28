@@ -38,6 +38,10 @@ class AnalyticsPage {
         const ctx = document.getElementById('healthTrendChart')?.getContext('2d');
         if (!ctx) return;
 
+        // Get theme colors from CSS variables
+        const style = getComputedStyle(document.body);
+        const textColor = style.getPropertyValue('--gray-500');
+
         this.charts.healthTrend = new Chart(ctx, {
             type: 'line',
             data: {
@@ -56,14 +60,21 @@ class AnalyticsPage {
                 maintainAspectRatio: false,
                 plugins: {
                     legend: {
-                        display: false
+                        display: false,
+                        labels: { color: textColor }
                     }
                 },
                 scales: {
                     y: {
                         beginAtZero: false,
                         min: 80,
-                        max: 100
+                        max: 100,
+                        ticks: { color: textColor },
+                        grid: { color: style.getPropertyValue('--gray-200') }
+                    },
+                    x: {
+                        ticks: { color: textColor },
+                        grid: { color: style.getPropertyValue('--gray-200') }
                     }
                 }
             }
@@ -73,6 +84,10 @@ class AnalyticsPage {
     async initComponentDistChart() {
         const ctx = document.getElementById('componentDistChart')?.getContext('2d');
         if (!ctx) return;
+
+        // Get theme colors from CSS variables
+        const style = getComputedStyle(document.body);
+        const textColor = style.getPropertyValue('--gray-500');
 
         this.charts.componentDist = new Chart(ctx, {
             type: 'doughnut',
@@ -94,7 +109,8 @@ class AnalyticsPage {
                 maintainAspectRatio: false,
                 plugins: {
                     legend: {
-                        position: 'bottom'
+                        position: 'bottom',
+                        labels: { color: textColor }
                     }
                 }
             }
@@ -104,6 +120,10 @@ class AnalyticsPage {
     async initMaintenanceHistoryChart() {
         const ctx = document.getElementById('maintenanceHistoryChart')?.getContext('2d');
         if (!ctx) return;
+
+        // Get theme colors from CSS variables
+        const style = getComputedStyle(document.body);
+        const textColor = style.getPropertyValue('--gray-500');
 
         this.charts.maintenanceHistory = new Chart(ctx, {
             type: 'bar',
@@ -125,12 +145,21 @@ class AnalyticsPage {
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: { color: textColor }
+                    }
+                },
                 scales: {
                     x: {
-                        stacked: true
+                        stacked: true,
+                        ticks: { color: textColor },
+                        grid: { color: style.getPropertyValue('--gray-200') }
                     },
                     y: {
-                        stacked: true
+                        stacked: true,
+                        ticks: { color: textColor },
+                        grid: { color: style.getPropertyValue('--gray-200') }
                     }
                 }
             }

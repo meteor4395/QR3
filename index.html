@@ -18,70 +18,70 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
 </head>
-<body class="bg-gray-50">
+<body>
     <div class="flex h-screen">
         <!-- Dark Mode Toggle -->
         <div class="absolute top-6 right-10 z-40">
             <label class="flex items-center cursor-pointer select-none">
-                <span class="mr-3 font-semibold text-gray-700">Dark Mode</span>
+                <span class="mr-3 font-semibold text-color-default">Dark Mode</span>
                 <input type="checkbox" id="darkModeSwitch" class="sr-only">
                 <span class="w-12 h-6 flex items-center bg-gray-300 rounded-full p-1 transition-colors duration-200" id="switchTrack">
                     <span class="dot w-5 h-5 bg-white rounded-full shadow-md transform transition-transform duration-200" id="switchDot"></span>
                 </span>
             </label>
         </div>
-        <aside class="w-64 bg-gradient-to-br from-gray-100 via-gray-50 to-white shadow-lg flex flex-col justify-between">
-            <div class="p-6 border-b border-gray-200">
+        <aside class="w-64 bg-surface shadow-lg flex flex-col justify-between">
+            <div class="p-6 border-b border-color-default">
                 <div class="flex items-center gap-3 mb-2">
                     <img src="https://img.icons8.com/color/48/000000/qr-code.png" alt="QRix Logo" class="w-10 h-10 rounded-xl shadow-lg">
-                    <h1 class="text-2xl font-bold text-gray-700 drop-shadow">QRix</h1>
+                    <h1 class="text-2xl font-bold text-color-default drop-shadow">QRix</h1>
                 </div>
-                <p class="text-sm text-gray-400 font-medium">Railway Track Fittings Management System</p>
+                <p class="text-sm text-color-subtle font-medium">Railway Track Fittings Management System</p>
             </div>
             <nav class="p-6 flex-1">
                 <ul class="space-y-3">
                     <li>
-                        <a href="#" class="flex items-center gap-3 p-3 text-gray-700 rounded-xl bg-white shadow hover:bg-gray-100 hover:scale-105 hover:shadow-xl transition-all duration-200" data-page="overview">
+                        <a href="#" class="flex items-center gap-3 p-3 text-color-default rounded-xl bg-surface shadow hover:scale-105 hover:shadow-xl transition-all duration-200 border-2 border-transparent hover:border-primary-color" data-page="overview">
                             <span class="text-xl">📊</span> <span class="font-semibold">Overview</span>
                         </a>
                     </li>
                     <li class="admin-only">
-                        <a href="#" class="flex items-center gap-3 p-3 text-gray-700 rounded-xl bg-white shadow hover:bg-gray-100 hover:scale-105 hover:shadow-xl transition-all duration-200" data-page="generate-qr">
+                        <a href="#" class="flex items-center gap-3 p-3 text-color-default rounded-xl bg-surface shadow hover:scale-105 hover:shadow-xl transition-all duration-200 border-2 border-transparent hover:border-primary-color" data-page="generate-qr">
                             <span class="text-xl">🔲</span> <span class="font-semibold">Generate QR</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center gap-3 p-3 text-gray-700 rounded-xl bg-white shadow hover:bg-gray-100 hover:scale-105 hover:shadow-xl transition-all duration-200" data-page="scan-qr">
+                        <a href="#" class="flex items-center gap-3 p-3 text-color-default rounded-xl bg-surface shadow hover:scale-105 hover:shadow-xl transition-all duration-200 border-2 border-transparent hover:border-primary-color" data-page="scan-qr">
                             <span class="text-xl">📷</span> <span class="font-semibold">Scan QR</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center gap-3 p-3 text-gray-700 rounded-xl bg-white shadow hover:bg-gray-100 hover:scale-105 hover:shadow-xl transition-all duration-200" data-page="inventory">
+                        <a href="#" class="flex items-center gap-3 p-3 text-color-default rounded-xl bg-surface shadow hover:scale-105 hover:shadow-xl transition-all duration-200 border-2 border-transparent hover:border-primary-color" data-page="inventory">
                             <span class="text-xl">📦</span> <span class="font-semibold">Inventory</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center gap-3 p-3 text-gray-700 rounded-xl bg-white shadow hover:bg-gray-100 hover:scale-105 hover:shadow-xl transition-all duration-200" data-page="analytics">
+                        <a href="#" class="flex items-center gap-3 p-3 text-color-default rounded-xl bg-surface shadow hover:scale-105 hover:shadow-xl transition-all duration-200 border-2 border-transparent hover:border-primary-color" data-page="analytics">
                             <span class="text-xl">📈</span> <span class="font-semibold">Analytics</span>
                         </a>
                     </li>
                     <li class="admin-only">
-                        <a href="#" class="flex items-center gap-3 p-3 text-gray-700 rounded-xl bg-white shadow hover:bg-gray-100 hover:scale-105 hover:shadow-xl transition-all duration-200" data-page="admin">
+                        <a href="#" class="flex items-center gap-3 p-3 text-color-default rounded-xl bg-surface shadow hover:scale-105 hover:shadow-xl transition-all duration-200 border-2 border-transparent hover:border-primary-color" data-page="admin">
                             <span class="text-xl">⚙️</span> <span class="font-semibold">Admin Panel</span>
                         </a>
                     </li>
                 </ul>
             </nav>
-            <div class="p-6 border-t border-gray-200">
-                <div id="userInfo" class="text-sm text-gray-400 mb-2"></div>
-                <button id="logoutBtn" class="w-full text-left p-3 text-gray-700 rounded-xl bg-white shadow hover:bg-gray-100 hover:scale-105 hover:shadow-xl transition-all duration-200 hidden">
+            <div class="p-6 border-t border-color-default">
+                <div id="userInfo" class="text-sm text-color-subtle mb-2"></div>
+                <button id="logoutBtn" class="w-full text-left p-3 text-color-default rounded-xl bg-surface shadow hover:scale-105 hover:shadow-xl transition-all duration-200 hidden border-2 border-transparent hover:border-primary-color">
                     <span class="mr-3">🚪</span> Logout
                 </button>
             </div>
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 overflow-y-auto bg-gradient-to-br from-gray-50 via-white to-gray-100">
+        <main class="flex-1 overflow-y-auto bg-gradient-themed">
             <div id="content" class="p-10">
                 <!-- Content will be loaded here dynamically -->
             </div>
@@ -232,23 +232,23 @@
 
         function showLoginForm() {
             mainContent.innerHTML = `
-                <div class="min-h-screen flex items-center justify-center">
-                    <div class="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow">
+                <div class="min-h-screen flex items-center justify-center -m-10">
+                    <div class="max-w-md w-full space-y-8 p-8 bg-surface rounded-lg shadow">
                         <div>
-                            <h2 class="text-center text-3xl font-extrabold text-gray-900">Sign in to QRix</h2>
+                            <h2 class="text-center text-3xl font-extrabold text-color-default">Sign in to QRix</h2>
                         </div>
                         <form id="loginForm" class="mt-8 space-y-6">
                             <div class="rounded-md shadow-sm -space-y-px">
                                 <div>
                                     <label for="username" class="sr-only">Username</label>
-                                    <input id="username" name="username" type="text" required
-                                        class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                                    <input id="username" name="username" type="text" required autocomplete="username"
+                                        class="appearance-none rounded-none relative block w-full px-3 py-2 form-input rounded-t-md focus:z-10 sm:text-sm"
                                         placeholder="Username">
                                 </div>
                                 <div>
                                     <label for="password" class="sr-only">Password</label>
-                                    <input id="password" name="password" type="password" required
-                                        class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                                    <input id="password" name="password" type="password" required autocomplete="current-password"
+                                        class="appearance-none rounded-none relative block w-full px-3 py-2 form-input rounded-b-md focus:z-10 sm:text-sm"
                                         placeholder="Password">
                                 </div>
                             </div>

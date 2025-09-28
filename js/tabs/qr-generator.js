@@ -16,27 +16,27 @@ class QRGeneratorPage {
         this.contentDiv.innerHTML = `
             <div class="flex flex-col gap-4">
                 <div class="mb-2">
-                    <h2 class="text-3xl font-bold text-gray-900">QR Code Generator</h2>
-                    <p class="text-lg text-gray-500">Generate QR codes for railway track fittings</p>
+                    <h2 class="text-3xl font-bold text-color-default">QR Code Generator</h2>
+                    <p class="text-lg text-color-muted">Generate QR codes for railway track fittings</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <!-- Form Card -->
-                    <div class="bg-white rounded-xl shadow-lg p-8 flex flex-col justify-center min-h-[400px]">
-                        <h3 class="text-xl font-semibold mb-6">Item Information</h3>
+                    <div class="bg-surface rounded-xl shadow-lg p-8 flex flex-col justify-center min-h-[400px]">
+                        <h3 class="text-xl font-semibold mb-6 text-color-default">Item Information</h3>
                         <form id="qr-form" class="space-y-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Vendor Name <span class="text-red-500">*</span></label>
-                                <input type="text" name="vendor_name" required placeholder="e.g., QRix Solutions"
-                                    class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                <label class="block text-sm font-medium text-color-muted">Vendor Name <span class="text-red-500">*</span></label>
+                                <input type="text" name="vendor_name" required placeholder="e.g., QRix Solutions" 
+                                    class="mt-1 block w-full form-input">
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Lot Number <span class="text-red-500">*</span></label>
+                                <label class="block text-sm font-medium text-color-muted">Lot Number <span class="text-red-500">*</span></label>
                                 <input type="text" name="lot_number" required placeholder="e.g., LOT-2024-001"
-                                    class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                    class="mt-1 block w-full form-input">
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Item Type <span class="text-red-500">*</span></label>
-                                <select name="item_type" required class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                <label class="block text-sm font-medium text-color-muted">Item Type <span class="text-red-500">*</span></label>
+                                <select name="item_type" required class="mt-1 block w-full form-input">
                                     <option value="">Select item type</option>
                                     <option value="Elastic Rail Clip">Elastic Rail Clip</option>
                                     <option value="Rail Liner">Rail Liner</option>
@@ -46,19 +46,19 @@ class QRGeneratorPage {
                             </div>
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700">Manufacture Date</label>
+                                    <label class="block text-sm font-medium text-color-muted">Manufacture Date</label>
                                     <input type="date" name="manufacture_date" required placeholder="dd-mm-yyyy"
-                                        class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                        class="mt-1 block w-full form-input">
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700">Supply Date</label>
+                                    <label class="block text-sm font-medium text-color-muted">Supply Date</label>
                                     <input type="date" name="supply_date" required placeholder="dd-mm-yyyy"
-                                        class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                        class="mt-1 block w-full form-input">
                                 </div>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Warranty Period</label>
-                                <select name="warranty_period" required class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                <label class="block text-sm font-medium text-color-muted">Warranty Period</label>
+                                <select name="warranty_period" required class="mt-1 block w-full form-input">
                                     <option value="12 months">12 months</option>
                                     <option value="6 months">6 months</option>
                                     <option value="1 year">1 year</option>
@@ -73,12 +73,12 @@ class QRGeneratorPage {
                         </form>
                     </div>
                     <!-- Preview Card -->
-                    <div class="bg-white rounded-xl shadow-lg p-8 flex flex-col justify-center min-h-[400px]">
-                        <h3 class="text-xl font-semibold mb-6">Generated QR Code</h3>
+                    <div class="bg-surface rounded-xl shadow-lg p-8 flex flex-col justify-center min-h-[400px]">
+                        <h3 class="text-xl font-semibold mb-6 text-color-default">Generated QR Code</h3>
                         <div id="qrcode" class="flex justify-center items-center p-4"></div>
                         <div id="qr-success" class="mt-4 text-center text-green-600"></div>
                         <div id="qr-error" class="mt-4 text-center text-red-600"></div>
-                        <div id="qr-placeholder" class="text-gray-400 text-center mt-8">Fill out the form to generate a QR code</div>
+                        <div id="qr-placeholder" class="text-color-subtle text-center mt-8">Fill out the form to generate a QR code</div>
                     </div>
                 </div>
             </div>
@@ -162,11 +162,11 @@ class QRGeneratorPage {
 
             // Show success message
             document.getElementById('qr-success').innerHTML = `
-                <div class="bg-green-50 border border-green-200 rounded-md p-4 mt-4">
-                    <h3 class="text-green-800 font-medium">QR Code Generated Successfully</h3>
-                    <p class="text-green-700 mt-1">ID: ${newTimestamp}</p>
-                    <p class="text-green-700">Vendor: ${this.qrData.vendor_name}</p>
-                    <p class="text-green-700">Lot: ${this.qrData.lot_number}</p>
+                <div class="bg-success-subtle border border-color-default rounded-md p-4 mt-4">
+                    <h3 class="text-color-success font-medium">QR Code Generated Successfully</h3>
+                    <p class="text-color-success mt-1">ID: ${newTimestamp}</p>
+                    <p class="text-color-success">Vendor: ${this.qrData.vendor_name}</p>
+                    <p class="text-color-success">Lot: ${this.qrData.lot_number}</p>
                     <button onclick="window.qrGeneratorPage.downloadQRCode()" class="mt-2 bg-green-600 text-white py-1 px-3 rounded hover:bg-green-700">
                         Download QR Code
                     </button>
@@ -176,8 +176,8 @@ class QRGeneratorPage {
         } catch (error) {
             console.error('Error:', error);
             document.getElementById('qr-error').innerHTML = `
-                <div class="bg-red-50 border border-red-200 rounded-md p-4 mt-4">
-                    <p class="text-red-700">Failed to generate QR code: ${error.message}</p>
+                <div class="bg-danger-bg border border-color-default rounded-md p-4 mt-4">
+                    <p class="text-color-danger">Failed to generate QR code: ${error.message}</p>
                 </div>
             `;
             document.getElementById('qr-success').innerHTML = '';

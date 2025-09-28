@@ -210,14 +210,14 @@ function displayQRData(data) {
     }
 
     qrData.innerHTML = `
-        <p class="text-sm text-gray-600">ID: ${data.timestamp}</p>
-        <p class="text-sm text-gray-600">Vendor: ${data.vendor_name}</p>
-        <p class="text-sm text-gray-600">Item Type: ${data.item_type}</p>
-        <p class="text-sm text-gray-600">Lot Number: ${data.lot_number}</p>
-        <p class="text-sm text-gray-600">Manufacture Date: ${new Date(data.manufacture_date).toLocaleDateString()}</p>
-        <p class="text-sm text-gray-600">Supply Date: ${new Date(data.supply_date).toLocaleDateString()}</p>
-        <p class="text-sm text-gray-600">Warranty: ${data.warranty_period}</p>
-        <p class="text-sm text-gray-600">Status: ${data.status}</p>
+        <p class="text-sm text-color-muted">ID: ${data.timestamp}</p>
+        <p class="text-sm text-color-muted">Vendor: ${data.vendor_name}</p>
+        <p class="text-sm text-color-muted">Item Type: ${data.item_type}</p>
+        <p class="text-sm text-color-muted">Lot Number: ${data.lot_number}</p>
+        <p class="text-sm text-color-muted">Manufacture Date: ${new Date(data.manufacture_date).toLocaleDateString()}</p>
+        <p class="text-sm text-color-muted">Supply Date: ${new Date(data.supply_date).toLocaleDateString()}</p>
+        <p class="text-sm text-color-muted">Warranty: ${data.warranty_period}</p>
+        <p class="text-sm text-color-muted">Status: ${data.status}</p>
     `;
     qrData.dataset.timestamp = data.timestamp;
     qrResult.classList.remove('hidden');
@@ -237,16 +237,16 @@ async function loadAndDisplayInspections(timestamp) {
         const inspections = result.data;
 
         if (inspections.length === 0) {
-            container.innerHTML = '<p class="text-sm text-gray-500">No inspection history found.</p>';
+            container.innerHTML = '<p class="text-sm text-color-muted">No inspection history found.</p>';
             return;
         }
 
         container.innerHTML = inspections.map((insp, index) => `
-            <div class="p-3 bg-gray-50 rounded-md border">
-                <p class="font-semibold text-sm">Inspection #${inspections.length - index}</p>
-                <p class="text-xs text-gray-600">Date: ${new Date(insp.inspection_time).toLocaleDateString()}</p>
-                <p class="text-xs text-gray-600">Report: ${insp.inspection_report || 'N/A'}</p>
-                <p class="text-xs text-gray-600">Replacement/Repair Needed: 
+            <div class="p-3 bg-body rounded-md border border-color-default">
+                <p class="font-semibold text-sm text-color-default">Inspection #${inspections.length - index}</p>
+                <p class="text-xs text-color-muted">Date: ${new Date(insp.inspection_time).toLocaleDateString()}</p>
+                <p class="text-xs text-color-muted">Report: ${insp.inspection_report || 'N/A'}</p>
+                <p class="text-xs text-color-muted">Replacement/Repair Needed: 
                     <span class="${insp.need_replacement_repair === 'yes' ? 'text-red-600 font-bold' : 'text-green-600'}">
                         ${insp.need_replacement_repair.toUpperCase()}
                     </span>
@@ -254,6 +254,6 @@ async function loadAndDisplayInspections(timestamp) {
             </div>
         `).join('');
     } catch (error) {
-        container.innerHTML = `<p class="text-red-500 text-sm">${error.message}</p>`;
+        container.innerHTML = `<p class="text-color-danger text-sm">${error.message}</p>`;
     }
 }

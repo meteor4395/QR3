@@ -71,15 +71,15 @@ async function refreshInventoryData() {
         // Set table header for inventory
         tableHead.innerHTML = `
             <tr>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ID</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Vendor</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Item Type</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Lot #</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Mfg. Date</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Supply Date</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Warranty</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Warranty Status</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-color-muted uppercase">ID</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-color-muted uppercase">Vendor</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-color-muted uppercase">Item Type</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-color-muted uppercase">Lot #</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-color-muted uppercase">Mfg. Date</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-color-muted uppercase">Supply Date</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-color-muted uppercase">Warranty</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-color-muted uppercase">Warranty Status</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-color-muted uppercase">Actions</th>
             </tr>
         `;
         // Clear existing table content
@@ -88,7 +88,7 @@ async function refreshInventoryData() {
         // Add filtered items to table
         filteredItems.forEach(item => {
             const row = document.createElement('tr');
-            row.className = 'hover:bg-gray-50';
+            row.className = 'hover:bg-surface-hover';
             
             // Format dates for display
             const manufactureDate = new Date(item.manufacture_date).toLocaleDateString();
@@ -100,25 +100,21 @@ async function refreshInventoryData() {
             const isExpired = warrantyEnd < new Date();
             
             row.innerHTML = `
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${item.timestamp}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${item.vendor_name}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${item.item_type}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${item.lot_number}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${manufactureDate}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${supplyDate}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${item.warranty_period}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-color-default">${item.timestamp}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-color-muted">${item.vendor_name}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-color-muted">${item.item_type}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-color-muted">${item.lot_number}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-color-muted">${manufactureDate}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-color-muted">${supplyDate}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-color-muted">${item.warranty_period}</td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                        isExpired 
-                            ? 'bg-red-100 text-red-800' 
-                            : 'bg-green-100 text-green-800'
-                    }">
+                    <span class="status-badge ${isExpired ? 'warning' : 'excellent'}">
                         ${isExpired ? 'Expired' : 'Active'}
                     </span>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-color-muted">
                     <button onclick="regenerateQR('${item.timestamp}')"
-                            class="text-blue-600 hover:text-blue-900">
+                            class="text-color-primary hover:text-primary-dark">
                         Regenerate QR
                     </button>
                 </td>
@@ -129,7 +125,7 @@ async function refreshInventoryData() {
         console.error('Error loading inventory:', error);
         tableBody.innerHTML = `
             <tr>
-                <td colspan="9" class="px-6 py-4 text-center text-red-500">
+                <td colspan="9" class="px-6 py-4 text-center text-color-danger">
                     Error loading inventory data: ${error.message}
                 </td>
             </tr>
@@ -165,35 +161,31 @@ async function refreshInspectionsData() {
         // Set table header for inspections
         tableHead.innerHTML = `
             <tr>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Inspection Date</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Item (Lot #)</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Report</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Replacement/Repair</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">QR ID</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-color-muted uppercase">Inspection Date</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-color-muted uppercase">Item (Lot #)</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-color-muted uppercase">Report</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-color-muted uppercase">Replacement/Repair</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-color-muted uppercase">QR ID</th>
             </tr>
         `;
         tableBody.innerHTML = '';
 
         filteredInspections.forEach(insp => {
             const row = document.createElement('tr');
-            row.className = 'hover:bg-gray-50';
+            row.className = 'hover:bg-surface-hover';
 
             const inspectionDate = new Date(insp.inspection_time).toLocaleDateString();
 
             row.innerHTML = `
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${inspectionDate}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${insp.item_type} (${insp.lot_number})</td>
-                <td class="px-6 py-4 text-sm text-gray-500">${insp.inspection_report || 'N/A'}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-color-default">${inspectionDate}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-color-muted">${insp.item_type} (${insp.lot_number})</td>
+                <td class="px-6 py-4 text-sm text-color-muted">${insp.inspection_report || 'N/A'}</td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                        insp.need_replacement_repair === 'yes'
-                            ? 'bg-red-100 text-red-800'
-                            : 'bg-green-100 text-green-800'
-                    }">
+                    <span class="status-badge ${insp.need_replacement_repair === 'yes' ? 'warning' : 'excellent'}">
                         ${insp.need_replacement_repair.toUpperCase()}
                     </span>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${insp.qr_timestamp}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-color-muted">${insp.qr_timestamp}</td>
             `;
             tableBody.appendChild(row);
         });

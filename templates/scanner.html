@@ -1,13 +1,13 @@
 
 
-<div class="scanner-container p-8 bg-gradient-to-br from-gray-50 via-white to-gray-100 rounded-xl shadow-lg">
-    <h2 class="text-3xl font-bold text-gray-800 mb-6">QR Code Scanner</h2>
+<div class="scanner-container p-8 bg-gradient-themed rounded-xl shadow-lg">
+    <h2 class="text-3xl font-bold text-color-default mb-6">QR Code Scanner</h2>
     <div class="flex flex-col gap-10">
         <!-- Scanner Section (static box) -->
-    <div class="scanner-section bg-white rounded-xl shadow p-8 flex flex-col items-center justify-center mb-6">
-            <h3 class="text-xl font-semibold text-gray-700 mb-4">Scan QR Code</h3>
+    <div class="scanner-section bg-surface rounded-xl shadow p-8 flex flex-col items-center justify-center mb-6">
+            <h3 class="text-xl font-semibold text-color-default mb-4">Scan QR Code</h3>
             <div class="mb-6">
-                <label class="block text-base font-medium text-gray-700 mb-2">
+                <label class="block text-base font-medium text-color-muted mb-2">
                     Upload QR Code Image
                 </label>
                 <input type="file" 
@@ -21,7 +21,7 @@
                         hover:file:bg-gray-200">
             </div>
             <div class="mb-6">
-                <h3 class="text-lg font-medium text-gray-500 mb-2 text-center">- OR -</h3>
+                <h3 class="text-lg font-medium text-color-muted mb-2 text-center">- OR -</h3>
                 <button id="startCamera" 
                     class="w-full bg-blue-400 text-white py-2 px-4 rounded-lg font-semibold shadow hover:bg-blue-500 transition-all duration-200">
                     Start Camera
@@ -32,41 +32,41 @@
             </div>
         </div>
         <!-- Product Details Section -->
-        <div class="result-section bg-white rounded-xl shadow p-8 flex flex-col justify-center">
-            <h3 class="text-xl font-semibold text-gray-700 mb-4">Product Details</h3>
+        <div class="result-section bg-surface rounded-xl shadow p-8 flex flex-col justify-center">
+            <h3 class="text-xl font-semibold text-color-default mb-4">Product Details</h3>
             <div id="loadingIndicator" class="hidden">
                 <div class="flex justify-center items-center py-4">
                     <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-400"></div>
                 </div>
             </div>
             <div id="qrResult" class="hidden">
-                <div class="bg-gray-50 p-6 rounded-xl shadow">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-4">QR Code Information</h3>
+                <div class="bg-body p-6 rounded-xl shadow">
+                    <h3 class="text-lg font-semibold text-color-default mb-4">QR Code Information</h3>
                     <div id="qrData" class="space-y-3">
                         <!-- QR data will be displayed here -->
                     </div>
                     <!-- Request Form -->
                     <div id="requestForm" class="mt-4 border-t pt-4">
-                        <h3 class="text-lg font-semibold text-gray-800">Submit Inspection Report</h3>
+                        <h3 class="text-lg font-semibold text-color-default">Submit Inspection Report</h3>
                         <div class="space-y-4">
                             <div>
-                                <label for="inspectionTime" class="block text-sm font-medium text-gray-700">Inspection Date</label>
-                                <input type="date" id="inspectionTime" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm">
+                                <label for="inspectionTime" class="block text-sm font-medium text-color-muted">Inspection Date</label>
+                                <input type="date" id="inspectionTime" class="mt-1 block w-full form-input">
                             </div>
                             <div>
-                                <label for="inspectionReport" class="block text-sm font-medium text-gray-700">Report Summary (Optional)</label>
-                                <textarea id="inspectionReport" placeholder="e.g., 'Visible signs of wear'" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm" rows="2"></textarea>
+                                <label for="inspectionReport" class="block text-sm font-medium text-color-muted">Report Summary (Optional)</label>
+                                <textarea id="inspectionReport" placeholder="e.g., 'Visible signs of wear'" class="mt-1 block w-full form-input" rows="2"></textarea>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Need Replacement/Repair?</label>
+                                <label class="block text-sm font-medium text-color-muted">Need Replacement/Repair?</label>
                                 <div class="mt-2 space-x-4">
                                     <label class="inline-flex items-center">
                                         <input type="radio" name="replacementNeeded" value="yes" class="form-radio">
-                                        <span class="ml-2">Yes</span>
+                                        <span class="ml-2 text-color-default">Yes</span>
                                     </label>
                                     <label class="inline-flex items-center">
                                         <input type="radio" name="replacementNeeded" value="no" class="form-radio">
-                                        <span class="ml-2">No</span>
+                                        <span class="ml-2 text-color-default">No</span>
                                     </label>
                                 </div>
                             </div>
@@ -78,7 +78,7 @@
                     </div>
                     <!-- Inspection History -->
                     <div class="mt-6 border-t pt-6">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Inspection History</h3>
+                        <h3 class="text-lg font-semibold text-color-default mb-4">Inspection History</h3>
                         <div id="inspectionHistory" class="space-y-3 max-h-60 overflow-y-auto">
                             <!-- History will be loaded here -->
                         </div>
