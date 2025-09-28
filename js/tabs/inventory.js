@@ -79,7 +79,6 @@ async function refreshInventoryData() {
                 <th class="px-6 py-3 text-left text-xs font-medium text-color-muted uppercase">Supply Date</th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-color-muted uppercase">Warranty</th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-color-muted uppercase">Warranty Status</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-color-muted uppercase">Actions</th>
             </tr>
         `;
         // Clear existing table content
@@ -112,12 +111,6 @@ async function refreshInventoryData() {
                         ${isExpired ? 'Expired' : 'Active'}
                     </span>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-color-muted">
-                    <button onclick="regenerateQR('${item.timestamp}')"
-                            class="text-color-primary hover:text-primary-dark">
-                        Regenerate QR
-                    </button>
-                </td>
             `;
             tableBody.appendChild(row);
         });
@@ -125,7 +118,7 @@ async function refreshInventoryData() {
         console.error('Error loading inventory:', error);
         tableBody.innerHTML = `
             <tr>
-                <td colspan="9" class="px-6 py-4 text-center text-color-danger">
+                <td colspan="8" class="px-6 py-4 text-center text-color-danger">
                     Error loading inventory data: ${error.message}
                 </td>
             </tr>
@@ -219,48 +212,3 @@ function debounce(func, wait) {
         timeout = setTimeout(later, wait);
     };
 }
-
-// Add regenerateQR function to window object for button click handler
-window.regenerateQR = async function(timestamp) {
-    try {
-        const response = await fetch(`http://localhost:5000/api/qr-codes/${timestamp}`);
-        if (!response.ok) throw new Error('Failed to fetch QR data');
-        
-        const result = await response.json();
-        const qrData = result.data;
-
-        // Create a temporary container for the QR code
-        const container = document.createElement('div');
-        container.style.position = 'fixed';
-        container.style.top = '-9999px';
-        document.body.appendChild(container);
-
-        // Generate QR code
-        new QRCode(container, {
-            text: JSON.stringify(qrData),
-            width: 256,
-            height: 256,
-            colorDark: "#000000",
-            colorLight: "#ffffff",
-            correctLevel: QRCode.CorrectLevel.H
-        });
-
-        // Wait for QR code to generate
-        setTimeout(() => {
-            // Get the canvas and download the image
-            const canvas = container.querySelector('canvas');
-            if (canvas) {
-                const link = document.createElement('a');
-                link.download = `qr-code-${timestamp}.png`;
-                link.href = canvas.toDataURL();
-                link.click();
-            }
-            
-            // Clean up
-            document.body.removeChild(container);
-        }, 100);
-    } catch (error) {
-        console.error('Error regenerating QR code:', error);
-        alert('Failed to regenerate QR code: ' + error.message);
-    }
-};

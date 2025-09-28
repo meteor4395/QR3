@@ -30,7 +30,7 @@
                 </span>
             </label>
         </div>
-        <aside class="w-64 bg-surface shadow-lg flex flex-col justify-between">
+        <aside id="sidebar" class="w-64 bg-surface shadow-lg flex flex-col justify-between">
             <div class="p-6 border-b border-color-default">
                 <div class="flex items-center gap-3 mb-2">
                     <img src="https://img.icons8.com/color/48/000000/qr-code.png" alt="QRix Logo" class="w-10 h-10 rounded-xl shadow-lg">
@@ -41,32 +41,32 @@
             <nav class="p-6 flex-1">
                 <ul class="space-y-3">
                     <li>
-                        <a href="#" class="flex items-center gap-3 p-3 text-color-default rounded-xl bg-surface shadow hover:scale-105 hover:shadow-xl transition-all duration-200 border-2 border-transparent hover:border-primary-color" data-page="overview">
+                        <a href="#" class="nav-link flex items-center gap-3 p-3 text-color-default rounded-xl bg-surface shadow hover:scale-105 hover:shadow-xl transition-all duration-200 border-2 border-transparent" data-page="overview">
                             <span class="text-xl">📊</span> <span class="font-semibold">Overview</span>
                         </a>
                     </li>
                     <li class="admin-only">
-                        <a href="#" class="flex items-center gap-3 p-3 text-color-default rounded-xl bg-surface shadow hover:scale-105 hover:shadow-xl transition-all duration-200 border-2 border-transparent hover:border-primary-color" data-page="generate-qr">
+                        <a href="#" class="nav-link flex items-center gap-3 p-3 text-color-default rounded-xl bg-surface shadow hover:scale-105 hover:shadow-xl transition-all duration-200 border-2 border-transparent" data-page="generate-qr">
                             <span class="text-xl">🔲</span> <span class="font-semibold">Generate QR</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center gap-3 p-3 text-color-default rounded-xl bg-surface shadow hover:scale-105 hover:shadow-xl transition-all duration-200 border-2 border-transparent hover:border-primary-color" data-page="scan-qr">
+                        <a href="#" class="nav-link flex items-center gap-3 p-3 text-color-default rounded-xl bg-surface shadow hover:scale-105 hover:shadow-xl transition-all duration-200 border-2 border-transparent" data-page="scan-qr">
                             <span class="text-xl">📷</span> <span class="font-semibold">Scan QR</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center gap-3 p-3 text-color-default rounded-xl bg-surface shadow hover:scale-105 hover:shadow-xl transition-all duration-200 border-2 border-transparent hover:border-primary-color" data-page="inventory">
+                        <a href="#" class="nav-link flex items-center gap-3 p-3 text-color-default rounded-xl bg-surface shadow hover:scale-105 hover:shadow-xl transition-all duration-200 border-2 border-transparent" data-page="inventory">
                             <span class="text-xl">📦</span> <span class="font-semibold">Inventory</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center gap-3 p-3 text-color-default rounded-xl bg-surface shadow hover:scale-105 hover:shadow-xl transition-all duration-200 border-2 border-transparent hover:border-primary-color" data-page="analytics">
+                        <a href="#" class="nav-link flex items-center gap-3 p-3 text-color-default rounded-xl bg-surface shadow hover:scale-105 hover:shadow-xl transition-all duration-200 border-2 border-transparent" data-page="analytics">
                             <span class="text-xl">📈</span> <span class="font-semibold">Analytics</span>
                         </a>
                     </li>
                     <li class="admin-only">
-                        <a href="#" class="flex items-center gap-3 p-3 text-color-default rounded-xl bg-surface shadow hover:scale-105 hover:shadow-xl transition-all duration-200 border-2 border-transparent hover:border-primary-color" data-page="admin">
+                        <a href="#" class="nav-link flex items-center gap-3 p-3 text-color-default rounded-xl bg-surface shadow hover:scale-105 hover:shadow-xl transition-all duration-200 border-2 border-transparent" data-page="admin">
                             <span class="text-xl">⚙️</span> <span class="font-semibold">Admin Panel</span>
                         </a>
                     </li>
@@ -74,7 +74,7 @@
             </nav>
             <div class="p-6 border-t border-color-default">
                 <div id="userInfo" class="text-sm text-color-subtle mb-2"></div>
-                <button id="logoutBtn" class="w-full text-left p-3 text-color-default rounded-xl bg-surface shadow hover:scale-105 hover:shadow-xl transition-all duration-200 hidden border-2 border-transparent hover:border-primary-color">
+                <button id="logoutBtn" class="nav-link w-full text-left p-3 text-color-default rounded-xl bg-surface shadow hover:scale-105 hover:shadow-xl transition-all duration-200 hidden border-2 border-transparent">
                     <span class="mr-3">🚪</span> Logout
                 </button>
             </div>
@@ -90,8 +90,7 @@
 
     <!-- ES6 Module Scripts -->
     <script type="module">
-        // Dark mode toggle logic
-        // Dark mode switch logic
+        // --- UI Initialization ---
         const darkModeSwitch = document.getElementById('darkModeSwitch');
         const switchTrack = document.getElementById('switchTrack');
         const switchDot = document.getElementById('switchDot');
@@ -118,200 +117,17 @@
         } else {
             setDarkMode(false);
         }
-        // Import modules
-        import { loadOverviewPage } from './js/tabs/overview.js';
-        import { loadQRGeneratorPage } from './js/tabs/qr-generator.js';
-        import { loadAnalyticsPage } from './js/tabs/analytics.js';
-        import { loadInventoryPage } from './js/tabs/inventory.js';
-        import { loadQRScannerPage } from './js/tabs/scanner.js';
-        import { loadAdminPage } from './js/tabs/admin.js';
 
-        // Mock data for the dashboard
-        const dashboardData = {
-            stats: {
-                totalItems: 2847,
-                activeVendors: 24,
-                itemsUnderWarranty: 2391,
-                failedInspections: 43
-            },
-            recentActivity: [
-                {
-                    id: 'QR-2024-001',
-                    vendor: 'QRix Solutions',
-                    type: 'Elastic Rail Clip',
-                    date: '2024-01-15'
-                },
-                {
-                    id: 'QR-2024-002',
-                    vendor: 'TrackFit Industries',
-                    type: 'Rail Liner',
-                    date: '2024-01-14'
-                }
-            ],
-            alerts: [
-                {
-                    type: 'warning',
-                    message: '50 items expiring within 30 days',
-                    category: 'Warranty Management'
-                },
-                {
-                    type: 'danger',
-                    message: 'QRix Solutions: 8% defect rate',
-                    category: 'Quality Control'
-                }
-            ]
-        };
+        // --- App Initialization ---
+        import { initAuth } from './js/auth.js';
+        import { initNavigation, navigateToDefaultPage } from './js/navigation.js';
 
-        // Get main content div
-        const mainContent = document.getElementById('content');
-
-        // Handle navigation
-        document.querySelectorAll('[data-page]').forEach(link => {
-            link.addEventListener('click', async (e) => {
-                e.preventDefault();
-                
-                // Remove active class from all links
-                document.querySelectorAll('[data-page]').forEach(l => 
-                    l.classList.remove('bg-blue-50'));
-                
-                // Add active class to clicked link
-                link.classList.add('bg-blue-50');
-
-                if (!isAuthenticated && page !== 'login') {
-                    showLoginForm();
-                    return;
-                }
-
-                // Get page identifier
-                const page = link.getAttribute('data-page');
-
-                // Check admin access
-                if (page === 'generate-qr' || page === 'admin') {
-                    if (userRole !== 'admin') {
-                        alert('Admin access required');
-                        return;
-                    }
-                }
-
-                // Load appropriate content
-                switch (page) {
-                    case 'overview':
-                        await loadOverviewPage(mainContent, dashboardData);
-                        break;
-                    case 'generate-qr':
-                        await loadQRGeneratorPage(mainContent);
-                        break;
-                    case 'scan-qr':
-                        await loadQRScannerPage(mainContent);
-                        break;
-                    case 'inventory':
-                        await loadInventoryPage(mainContent);
-                        break;
-                    case 'analytics':
-                        await loadAnalyticsPage(mainContent);
-                        break;
-                    case 'admin':
-                        await loadAdminPage(mainContent);
-                        break;
-                    default:
-                        mainContent.innerHTML = '<p class="text-gray-500">Coming soon...</p>';
-                }
-            });
-        });
-
-        let isAuthenticated = false;
-        let userRole = null;
-        const logoutBtn = document.getElementById('logoutBtn');
-        const userInfo = document.getElementById('userInfo');
-
-        function updateUIForRole(role) {
-            document.querySelectorAll('.admin-only').forEach(el => {
-                el.style.display = role === 'admin' ? 'block' : 'none';
-            });
+        function onLoginSuccess() {
+            navigateToDefaultPage();
         }
 
-        function showLoginForm() {
-            mainContent.innerHTML = `
-                <div class="min-h-screen flex items-center justify-center -m-10">
-                    <div class="max-w-md w-full space-y-8 p-8 bg-surface rounded-lg shadow">
-                        <div>
-                            <h2 class="text-center text-3xl font-extrabold text-color-default">Sign in to QRix</h2>
-                        </div>
-                        <form id="loginForm" class="mt-8 space-y-6">
-                            <div class="rounded-md shadow-sm -space-y-px">
-                                <div>
-                                    <label for="username" class="sr-only">Username</label>
-                                    <input id="username" name="username" type="text" required autocomplete="username"
-                                        class="appearance-none rounded-none relative block w-full px-3 py-2 form-input rounded-t-md focus:z-10 sm:text-sm"
-                                        placeholder="Username">
-                                </div>
-                                <div>
-                                    <label for="password" class="sr-only">Password</label>
-                                    <input id="password" name="password" type="password" required autocomplete="current-password"
-                                        class="appearance-none rounded-none relative block w-full px-3 py-2 form-input rounded-b-md focus:z-10 sm:text-sm"
-                                        placeholder="Password">
-                                </div>
-                            </div>
-                            <div>
-                                <button type="submit"
-                                    class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                    Sign in
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            `;
-
-            document.getElementById('loginForm').addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
-                
-                try {
-                    const response = await fetch('http://localhost:5000/api/auth/login', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        credentials: 'include',
-                        body: JSON.stringify({ username, password })
-                    });
-
-                    if (!response.ok) throw new Error('Invalid credentials');
-                    
-                    const data = await response.json();
-                    isAuthenticated = true;
-                    userRole = data.user.role;
-                    logoutBtn.classList.remove('hidden');
-                    userInfo.textContent = `Logged in as: ${username} (${userRole})`;
-                    updateUIForRole(userRole);
-                    document.querySelector('[data-page="overview"]').click();
-                } catch (error) {
-                    alert('Login failed: ' + error.message);
-                }
-            });
-        }
-
-        logoutBtn.addEventListener('click', async () => {
-            try {
-                await fetch('http://localhost:5000/api/auth/logout', {
-                    method: 'POST',
-                    credentials: 'include'
-                });
-                isAuthenticated = false;
-                userRole = null;
-                logoutBtn.classList.add('hidden');
-                userInfo.textContent = '';
-                updateUIForRole(null);
-                showLoginForm();
-            } catch (error) {
-                console.error('Logout failed:', error);
-            }
-        });
-
-        // Show login form by default
-        showLoginForm();
+        initNavigation();
+        initAuth(onLoginSuccess);
     </script>
 </body>
 </html>

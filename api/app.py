@@ -5,6 +5,7 @@ import traceback
 try:
     import base64
     import time
+    from datetime import datetime, timedelta
     from flask import Flask, request, jsonify, send_from_directory
     from flask_cors import CORS
     from pathlib import Path
@@ -253,6 +254,73 @@ def delete_user(user_id):
         return jsonify({'success': True}), 200
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)}), 400
+
+# --- Dashboard specific routes ---
+
+def get_warranty_months(warranty_period_str):
+    """Converts warranty period string to months."""
+    if not warranty_period_str:
+        return 0
+    parts = warranty_period_str.lower().split()
+    if len(parts) != 2:
+        return 0
+    
+    num, unit = parts
+    try:
+        num = int(num)
+    except ValueError:
+        return 0
+
+    if 'year' in unit:
+        return num * 12
+    if 'month' in unit:
+        return num
+    return 0
+
+@app.route('/api/dashboard/overview', methods=['GET'])
+def get_dashboard_overview():
+    try:
+        all_qr_codes = db.get_all_qr_codes()
+        all_inspections = db.get_all_inspections()
+
+        # --- Calculate Stats ---
+        total_items = len(all_qr_codes)
+        active_vendors = len(set(item['vendor_name'] for item in all_qr_codes))
+        failed_inspections = sum(1 for insp in all_inspections if insp['need_replacement_repair'] == 'yes')
+        
+        items_under_warranty = 0
+        expiring_soon_count = 0
+        now = datetime.now()
+        for item in all_qr_codes:
+            try:
+                supply_date = datetime.strptime(item['supply_date'], '%Y-%m-%d')
+                months = get_warranty_months(item['warranty_period'])
+                if months > 0:
+                    # A more accurate way to add months
+                    warranty_end_date = supply_date + timedelta(days=months * 30.44)
+                    if warranty_end_date > now:
+                        items_under_warranty += 1
+                        if (warranty_end_date - now).days <= 30:
+                            expiring_soon_count += 1
+            except (ValueError, TypeError):
+                continue
+
+        # --- Prepare Alerts ---
+        alerts = []
+        if expiring_soon_count > 0:
+            alerts.append({'type': 'warning', 'message': f'{expiring_soon_count} items have warranty expiring within 30 days', 'category': 'Warranty Management'})
+        
+        # Add alerts for items needing repair/replacement
+        for insp in all_inspections:
+            if insp['need_replacement_repair'] == 'yes':
+                alerts.append({'type': 'danger', 'message': f"Item '{insp['item_type']}' (Lot: {insp['lot_number']}) requires attention.", 'category': 'Inspection Alert'})
+
+        # --- Prepare Recent Activity (last 5 QR codes) ---
+        recent_activity = all_qr_codes[:5]
+
+        return jsonify({'stats': {'totalItems': total_items, 'activeVendors': active_vendors, 'itemsUnderWarranty': items_under_warranty, 'failedInspections': failed_inspections}, 'recentActivity': recent_activity, 'alerts': alerts}), 200
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
 
 # Serve static files from the root directory
 @app.route('/')

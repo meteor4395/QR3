@@ -6,10 +6,10 @@ class OverviewPage {
         this.dashboardData = null;
     }
 
-    async initialize(contentDiv, dashboardData) {
+    async initialize(contentDiv) {
         this.contentDiv = contentDiv;
-        this.dashboardData = dashboardData;
         await this.loadTemplate();
+        await this.fetchDashboardData();
         this.render();
         this.attachEventListeners();
     }
@@ -21,6 +21,18 @@ class OverviewPage {
         } catch (error) {
             console.error('Error loading overview template:', error);
             throw error;
+        }
+    }
+
+    async fetchDashboardData() {
+        try {
+            const response = await fetch('http://localhost:5000/api/dashboard/overview');
+            if (!response.ok) throw new Error('Failed to fetch dashboard data');
+            this.dashboardData = await response.json();
+        } catch (error) {
+            console.error('Error fetching dashboard data:', error);
+            this.contentDiv.innerHTML = `<p class="text-color-danger">Error loading dashboard data: ${error.message}</p>`;
+            throw error; // Stop further execution
         }
     }
 
@@ -47,12 +59,12 @@ class OverviewPage {
 
         activityList.innerHTML = this.dashboardData.recentActivity.map(activity => `
             <div class="activity-item">
-                <div class="activity-icon">📋</div>
+                <div class="activity-icon">📦</div>
                 <div class="activity-content">
-                    <div class="activity-title">${this.escapeHtml(activity.id)}</div>
-                    <div class="activity-subtitle">${this.escapeHtml(activity.vendor)}</div>
+                    <div class="activity-title">${this.escapeHtml(activity.item_type)}</div>
+                    <div class="activity-subtitle">${this.escapeHtml(activity.vendor_name)}</div>
                 </div>
-                <div class="activity-date">${this.formatDate(activity.date)}</div>
+                <div class="activity-date">${this.formatDate(activity.created_at)}</div>
             </div>
         `).join('');
     }
@@ -60,6 +72,11 @@ class OverviewPage {
     updateAlerts() {
         const alertsList = document.getElementById('alertsList');
         if (!alertsList) return;
+
+        if (this.dashboardData.alerts.length === 0) {
+            alertsList.innerHTML = `<p class="text-color-muted">No system alerts at this time.</p>`;
+            return;
+        }
 
         alertsList.innerHTML = this.dashboardData.alerts.map(alert => `
             <div class="alert-card alert-${alert.type}">
@@ -104,11 +121,11 @@ class OverviewPage {
 
 // Create and export the page instance
 const overviewPage = new OverviewPage();
-export const loadOverviewPage = async (contentDiv, dashboardData) => {
+export const loadOverviewPage = async (contentDiv) => {
     try {
-        await overviewPage.initialize(contentDiv, dashboardData);
+        await overviewPage.initialize(contentDiv);
     } catch (error) {
         console.error('Error loading overview page:', error);
-        contentDiv.innerHTML = '<p class="text-red-500">Error loading content</p>';
+        // Error is already handled inside initialize
     }
 };

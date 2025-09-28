@@ -38,6 +38,7 @@
   --surface-color: #FFFFFF;
   --surface-hover: var(--gray-50);
   --border-hover-color: var(--primary-light);
+  --active-bg: var(--primary-bg);
   --body-bg: var(--gray-100);
   
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
@@ -79,6 +80,7 @@ body.dark-theme {
   --surface-color: #18181B;
   --surface-hover: #27272A;
   --border-hover-color: var(--primary-color);
+  --active-bg: var(--primary-bg);
   --body-bg: #18181B;
   --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
   --shadow: 0 1px 3px rgba(0,0,0,0.4);
@@ -118,6 +120,13 @@ body.dark-theme {
 }
 .text-color-success {
   color: var(--success-dark);
+}
+
+/* Blurred effect for login */
+.blurred {
+  filter: blur(4px);
+  pointer-events: none;
+  user-select: none;
 }
 
 
@@ -215,6 +224,15 @@ body {
 .nav-link.bg-blue-100 {
   box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
   font-weight: bold;
+}
+
+.nav-link:hover {
+  border-color: var(--border-hover-color);
+}
+
+.nav-link.active {
+  background-color: var(--active-bg);
+  border-color: var(--primary-color);
 }
 
 #sidebar {
